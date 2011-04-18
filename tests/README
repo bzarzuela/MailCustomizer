@@ -1,0 +1,5 @@
+Install:
+
+1. Unzip to a folder
+2. Link to Zend's library in lib/vendor/Zend
+3. phpunit unit.php in tests
