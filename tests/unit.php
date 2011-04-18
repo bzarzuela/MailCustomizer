@@ -23,6 +23,7 @@ class MailCustomizerTest extends PHPUnit_Framework_TestCase
     $mail_headers = $mail->getHeaders();
     
     $this->assertEquals($mail_headers['X-Customized-By'][0], $custom_headers['X-Customized-By']);
+    $this->assertEquals($mail_headers['X-Zend-Version'][0], $custom_headers['X-Zend-Version']);
   }
   
   public function testCustomizeExistingObject()
