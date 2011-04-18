@@ -9,9 +9,25 @@ class MailCustomizerTest extends PHPUnit_Framework_TestCase
     'X-Zend-Version' => '1.10.x',
   );
   
+  /**
+   * This is free because Zend_Config implements ArrayAccess. yay!
+   *
+   * @return void
+   * @author Bryan Zarzuela
+   */
   public function testCustomizeViaZendConfig()
   {
-    // $config = new Zend_Config
+    $config = new Zend_Config($this->_custom_headers);
+    
+    $bmc = new Boz_MailCustomizer;
+    
+    $mail = $bmc->customize($config);
+    
+    $mail_headers = $mail->getHeaders();
+    
+    foreach ($this->_custom_headers as $key => $value) {
+      $this->assertEquals($value, $mail_headers[$key][0]);
+    }
   }
   
   public function testCustomizeViaArray()
