@@ -46,6 +46,24 @@ class MailCustomizerTest extends PHPUnit_Framework_TestCase
   
   public function testCustomizeExistingObject()
   {
+    $mail = new Zend_Mail;
+    $mail->addHeader('X-Existing', 'foobar');
     
+    $config = new Zend_Config(array(
+      'headers' => $this->_custom_headers,
+      'mail_instance' => $mail,
+    ));
+    
+    $bmc = new Boz_MailCustomizer;
+    
+    $customized = $bmc->customize($config);
+    
+    $mail_headers = $customized->getHeaders();
+    
+    $this->assertEquals('foobar', $mail_headers['X-Existing'][0]);
+    
+    foreach ($this->_custom_headers as $key => $value) {
+      $this->assertEquals($value, $mail_headers[$key][0]);
+    }
   }
 }
