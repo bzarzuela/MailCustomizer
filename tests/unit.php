@@ -4,17 +4,19 @@ include_once 'bootstrap.php';
 
 class MailCustomizerTest extends PHPUnit_Framework_TestCase
 {
+  protected $_custom_headers = array(
+    'X-Customized-By' => 'Bryan Zarzuela',
+    'X-Zend-Version' => '1.10.x',
+  );
+  
   public function testCustomizeViaZendConfig()
   {
-    
+    // $config = new Zend_Config
   }
   
   public function testCustomizeViaArray()
   {
-    $custom_headers = array(
-      'X-Customized-By' => 'Bryan Zarzuela',
-      'X-Zend-Version' => '1.10.x',
-    );
+    $custom_headers = $this->_custom_headers;
     
     $bmc = new Boz_MailCustomizer;
 
